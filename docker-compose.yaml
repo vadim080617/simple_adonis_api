@@ -1,0 +1,28 @@
+version: "3"
+services:
+  api:
+    build:
+      context: ./api
+    volumes:
+      - ./api/src:/var/www
+    ports:
+      - 3333:80
+  postgre:
+    image: postgres
+    restart: always
+    volumes:
+      - .data/postgre:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=secret
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=user@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=SuperSecret
+    volumes:
+      - .data/pgadmin:/var/lib/pgadmin
+    ports:
+      - 5050:80
+
+
