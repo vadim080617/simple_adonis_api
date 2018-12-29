@@ -16,6 +16,4 @@ const Route = use('Route');
 
 Route.get('/', () => ({ status: 'Ok', version: '1.0.0' }));
 
-Route
-  .resource('users', 'UserController')
-  .apiOnly()
+Route.resource('products', 'ProductController').apiOnly();

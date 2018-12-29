@@ -2,7 +2,7 @@
 
 class UserController {
 	async index() {
-		return { status: 'sadasdasd'}
+		return { status: 'all users'}
 	}
 
 	async store() {
