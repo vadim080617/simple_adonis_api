@@ -1,6 +1,3 @@
-'use strict'
+class ProductTypeController {}
 
-class ProductTypeController {
-}
-
-module.exports = ProductTypeController
+module.exports = ProductTypeController;

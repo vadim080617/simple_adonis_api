@@ -16,4 +16,4 @@ const Route = use('Route');
 
 Route.get('/', () => ({ status: 'Ok', version: '1.0.0' }));
 
-Route.resource('products', 'ProductController').apiOnly();
+Route.resource('products', 'ProductController').apiOnly(); // TODO: add middleware
