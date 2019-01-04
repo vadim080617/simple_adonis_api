@@ -16,7 +16,7 @@ class ProductsSchema extends Schema {
         .integer('type_id')
         .unsigned()
         .references('id')
-        .inTable('products')
+        .inTable('product_types')
         .onDelete('cascade');
       table
         .integer('user_id')

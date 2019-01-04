@@ -4,7 +4,18 @@ const Model = use('Model');
 /** @type {import('@adonisjs/framework/src/Hash')} */
 const Hash = use('Hash');
 
+const ADMIN_ROLE_ID = 1;
+const CUSTOMER_ROLE_ID = 2;
+
 class User extends Model {
+  static get ADMIN_ROLE_ID() {
+    return ADMIN_ROLE_ID;
+  }
+
+  static get CUSTOMER_ROLE_ID() {
+    return CUSTOMER_ROLE_ID;
+  }
+
   static boot() {
     super.boot();
 
