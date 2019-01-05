@@ -1,25 +1,15 @@
-'use strict'
-
 class UserController {
-	async index() {
-		return { status: 'sadasdasd'}
-	}
+  async index() {
+    return { msg: 'all users' };
+  }
 
-	async store() {
+  async store() {}
 
-	}
+  async show() {}
 
-	async show() {
+  async update() {}
 
-	}
-
-	async update() {
-
-	}
-
-	async destroy() {
-
-	}
+  async destroy() {}
 }
 
-module.exports = UserController
+module.exports = UserController;
