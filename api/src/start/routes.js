@@ -3,17 +3,10 @@ const Route = use('Route');
 
 Route.get('/', () => ({ status: 'Ok', version: '1.0.0' }));
 
-Route.resource('products', 'ProductController')
-  .apiOnly()
-  .validator(new Map([
-    [['products.index'], ['GetProducts']],
-    [['products.store'], ['StoreProduct']],
-  ]))
-  .middleware(new Map([
-    [['products.store'], ['productAttrValidator']],
-  ]));
-Route.get('/types', 'ProductTypeController.index');
-Route.get('/types/:id', 'ProductTypeController.show');
-Route.delete('/types/:id', 'ProductTypeController.delete');
+Route.resource('products', 'ProductController');
+Route.resource('types', 'ProductTypeController');
 
 Route.get('/types/:id/attrs', 'AttributeController.index');
+Route.post('/types/:id/attrs', 'AttributeController.store');
+Route.put('/types/:id/attrs/:attrid', 'AttributeController.update');
+Route.post('/types/:id/attrs/:attrid', 'AttributeController.destroy');

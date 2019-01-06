@@ -1,26 +1,13 @@
-const Product = use('App/Models/Product');
-const ProductType = use('App/Models/ProductType');
-
 class ProductController {
-  async index({ request }) {
+  async index() {}
 
-  }
+  async store() {}
 
-  async store({ request }) {
+  async show() {}
 
-  }
+  async update() {}
 
-  async show({ params }) {
-
-  }
-
-  async update({ request, response, params}) {
-
-  }
-
-  async destroy({ params, response }) {
-
-  }
+  async destroy() {}
 }
 
 module.exports = ProductController;
