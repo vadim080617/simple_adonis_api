@@ -9,4 +9,4 @@ Route.resource('types', 'ProductTypeController');
 Route.get('/types/:id/attrs', 'AttributeController.index');
 Route.post('/types/:id/attrs', 'AttributeController.store');
 Route.put('/types/:id/attrs/:attrid', 'AttributeController.update');
-Route.post('/types/:id/attrs/:attrid', 'AttributeController.destroy');
+Route.delete('/types/:id/attrs/:attrid', 'AttributeController.destroy');
