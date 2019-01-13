@@ -10,6 +10,10 @@ class Product extends Model {
   attrValues() {
     return this.hasMany('App/Models/ProductAttributeValue', 'id', 'product_id');
   }
+
+  attrs() {
+    return this.belongsToMany('App/Models/Attribute', 'product_id', 'attr_id').pivotTable('products_attributes');
+  }
 }
 
 module.exports = Product;

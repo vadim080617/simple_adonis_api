@@ -1,4 +1,4 @@
-const ProductType = use('App/Models/ProductType');
+const ProductType = use('App/Models/Type');
 const Attribute = use('App/Models/Attribute');
 
 class AtrributeSeeder {
@@ -6,15 +6,15 @@ class AtrributeSeeder {
     await Attribute.query().delete();
     const { rows: types } = await ProductType.all();
     await Promise.all(
-      types.map(async type => {
-        await Promise.all(
-          [1, 2, 3, 4].map(async el => {
-            await type.attributes().create({
+      types.map(async type =>
+        Promise.all(
+          [1, 2, 3, 4].map(async el =>
+            type.attributes().create({
               attribute: `${type.type}attr${el}`
-            });
-          })
-        );
-      })
+            })
+          )
+        )
+      )
     );
   }
 }

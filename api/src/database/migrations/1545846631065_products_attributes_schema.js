@@ -18,7 +18,6 @@ class ProductsAttributesSchema extends Schema {
         .inTable('attributes')
         .onDelete('cascade');
       table.text('value');
-      table.timestamps();
     });
   }
 

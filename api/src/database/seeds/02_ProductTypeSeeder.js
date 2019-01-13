@@ -1,4 +1,4 @@
-const ProductType = use('App/Models/ProductType');
+const ProductType = use('App/Models/Type');
 
 class ProductTypeSeeder {
   async run() {

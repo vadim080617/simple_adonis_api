@@ -2,13 +2,9 @@ const Role = use('App/Models/Role');
 
 class RoleSeeder {
   async run() {
+    await Role.query().delete();
     const roles = [{ role: 'admin' }, { role: 'customer' }];
-    await Promise.all(
-      roles.map(async (role, i) => {
-        const findingObj = { id: i + 1, ...role };
-        await Role.findOrCreate(findingObj, findingObj);
-      })
-    );
+    await Role.createMany(roles);
   }
 }
 

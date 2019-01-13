@@ -1,23 +1,12 @@
-const Hash = use('Hash');
 const User = use('App/Models/User');
+const Factory = use('Factory');
+const Role = use('App/Models/Role');
 
 class UserSeeder {
   async run() {
     await User.query().delete();
-
-    await User.create({
-      username: 'admin',
-      email: 'admin@domain.com',
-      password: await Hash.make('123456'),
-      role_id: User.ADMIN_ROLE_ID
-    });
-
-    await User.create({
-      username: 'customer',
-      email: 'customer@domain.com',
-      password: await Hash.make('123456'),
-      role_id: User.CUSTOMER_ROLE_ID
-    });
+    const { rows: roles } = await Role.all();
+    await Promise.all(roles.map(async el => Factory.model('App/Models/User').create({ role_id: el.id })));
   }
 }
 

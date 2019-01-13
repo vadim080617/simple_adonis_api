@@ -9,7 +9,7 @@ class UsersSchema extends Schema {
         .unsigned()
         .references('id')
         .inTable('roles')
-        .onDelete('cascade');;
+        .onDelete('cascade');
     });
   }
 
