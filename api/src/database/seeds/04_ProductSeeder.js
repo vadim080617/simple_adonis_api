@@ -8,21 +8,18 @@ class ProductSeeder {
 
     const { rows: users } = await User.all();
     const { rows: productTypes } = await ProductType.all();
-
-    await Promise.all(
-      users.map(async user =>
-        Promise.all(
-          productTypes.map(async productType =>
-            Product.create({
-              name: `${productType.type}${new Date().getTime()}`,
-              type_id: productType.id,
-              user_id: user.id,
-              price: Math.random() * 10000
-            })
-          )
-        )
+    const products = [];
+    users.forEach(user =>
+      productTypes.forEach(productType =>
+        products.push({
+          name: `${productType.type}${new Date().getTime()}`,
+          type_id: productType.id,
+          user_id: user.id,
+          price: Math.random() * 10000
+        })
       )
     );
+    await Product.createMany(products);
   }
 }
 
