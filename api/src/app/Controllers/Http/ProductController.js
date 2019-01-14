@@ -1,13 +1,23 @@
 class ProductController {
-  async index() {}
+  async index() {
+    return {};
+  }
 
-  async store() {}
+  async store() {
+    return {};
+  }
 
-  async show() {}
+  async show() {
+    return {};
+  }
 
-  async update() {}
+  async update() {
+    return {};
+  }
 
-  async destroy() {}
+  async destroy() {
+    return {};
+  }
 }
 
 module.exports = ProductController;

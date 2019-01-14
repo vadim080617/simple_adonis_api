@@ -2,11 +2,12 @@
 const Model = use('Model');
 
 class ProductAttributeValue extends Model {
-  static get table () {
-    return 'products_attributes'
+  static get table() {
+    return 'products_attributes';
   }
-  attr () {
-    return this.belongsTo('App/Models/Attribute','attr_id');
+
+  attr() {
+    return this.belongsTo('App/Models/Attribute', 'attr_id');
   }
 }
 

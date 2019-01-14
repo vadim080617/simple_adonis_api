@@ -2,16 +2,25 @@ const ProductType = use('App/Models/ProductType');
 
 class ProductTypeController {
   async index() {
-    return await ProductType.all();
+    const types = await ProductType.all();
+    return types;
   }
 
-  async store() {}
+  async store() {
+    return {};
+  }
 
-  async show() {}
+  async show() {
+    return {};
+  }
 
-  async update() {}
+  async update() {
+    return {};
+  }
 
-  async destroy() {}
+  async destroy() {
+    return {};
+  }
 }
 
 module.exports = ProductTypeController;

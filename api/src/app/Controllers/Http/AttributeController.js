@@ -1,5 +1,7 @@
 class AttributeController {
-  async index(){}
+  async index() {
+    return {};
+  }
 }
 
-module.exports = AttributeController
+module.exports = AttributeController;
