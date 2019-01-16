@@ -6,7 +6,6 @@ class ProductsSchema extends Schema {
     this.create('types', table => {
       table.increments();
       table.string('type');
-      table.timestamps();
     });
 
     this.create('products', table => {

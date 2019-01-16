@@ -6,7 +6,7 @@ class UserSeeder {
   async run() {
     await User.query().delete();
     const { rows: roles } = await Role.all();
-    await Promise.all(roles.map(async el => Factory.model('App/Models/User').create({ role_id: el.id })));
+    await Promise.all(roles.map(el => Factory.model('App/Models/User').create({ role_id: el.id })));
   }
 }
 

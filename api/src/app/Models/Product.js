@@ -7,12 +7,14 @@ class Product extends Model {
     this.addTrait('Product');
   }
 
-  attrValues() {
-    return this.hasMany('App/Models/ProductAttributeValue', 'id', 'product_id');
+  static get updatedAtColumn() {
+    return false;
   }
 
   attrs() {
-    return this.belongsToMany('App/Models/Attribute', 'product_id', 'attr_id').pivotTable('products_attributes');
+    return this.belongsToMany('App/Models/Attribute', 'product_id', 'attr_id')
+      .pivotModel('App/Models/ProductAttributeValue')
+      .withPivot(['value']);
   }
 }
 

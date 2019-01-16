@@ -13,7 +13,7 @@ class Product {
             query.where('name', 'like', `%${name}%`);
           }
         })
-        .with('attrValues.attr')
+        .with('attrs')
         .orderBy(...sortParams)
         .fetch();
 
@@ -24,19 +24,34 @@ class Product {
       const newProduct = await Model.create(mainFields);
       await Promise.all(
         additionlFields.map(async productAttr => {
-          await newProduct.attrValues().create({
-            product_id: newProduct.id,
-            attr_id: productAttr.id,
-            value: productAttr.value
+          await newProduct.attrs().attach([productAttr.id], row => {
+            row.value = productAttr.value;
           });
         })
       );
 
       const newProductWithAttr = await Model.query()
         .where('id', newProduct.id)
-        .with('attrValues.attr')
+        .with('attrs')
         .first();
       return newProductWithAttr;
+    };
+
+    Model.updateWithAddAttr = async (id, mainFields, additionlFields) => {
+      const updatingProduct = await Model.findOrFail(id);
+      updatingProduct.merge(mainFields);
+      await updatingProduct.save();
+      await Promise.all(
+        additionlFields.map(productAttr => {
+          return updatingProduct
+            .attrs()
+            .pivotQuery()
+            .where('attr_id', productAttr.id)
+            .update({ value: productAttr.value });
+        })
+      );
+
+      return updatingProduct;
     };
   }
 }

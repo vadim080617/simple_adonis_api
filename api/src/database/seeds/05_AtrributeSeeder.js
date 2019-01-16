@@ -6,9 +6,9 @@ class AtrributeSeeder {
     await Attribute.query().delete();
     const { rows: types } = await ProductType.all();
     await Promise.all(
-      types.map(async type =>
+      types.map(type =>
         Promise.all(
-          [1, 2, 3, 4].map(async el =>
+          [1, 2, 3, 4].map(el =>
             type.attributes().create({
               attribute: `${type.type}attr${el}`
             })
