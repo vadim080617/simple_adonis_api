@@ -1,17 +1,20 @@
+const ProductType = use('App/Models/ProductType');
+
 class TypeController {
   async index() {
-    return {};
+    const types = await ProductType.all();
+    return types;
   }
 
   async store() {
     return {};
   }
 
-  async update() {
+  async show() {
     return {};
   }
 
-  async show() {
+  async update() {
     return {};
   }
 
