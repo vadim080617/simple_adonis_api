@@ -7,11 +7,11 @@ class ProductController {
     return {};
   }
 
-  async show() {
+  async update() {
     return {};
   }
 
-  async update() {
+  async show() {
     return {};
   }
 
