@@ -6,6 +6,14 @@ class ProductAttributeValue extends Model {
     return 'products_attributes';
   }
 
+  static get updatedAtColumn() {
+    return false;
+  }
+
+  static get createdAtColumn() {
+    return false;
+  }
+
   attr() {
     return this.belongsTo('App/Models/Attribute', 'attr_id');
   }

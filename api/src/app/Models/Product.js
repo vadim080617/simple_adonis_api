@@ -2,8 +2,19 @@
 const Model = use('Model');
 
 class Product extends Model {
-  attrValues() {
-    return this.hasMany('App/Models/ProductAttributeValue', 'id', 'product_id');
+  static boot() {
+    super.boot();
+    this.addTrait('App/Models/Traits/Repository');
+  }
+
+  static get updatedAtColumn() {
+    return false;
+  }
+
+  attrs() {
+    return this.belongsToMany('App/Models/Attribute', 'product_id', 'attr_id')
+      .pivotModel('App/Models/ProductAttributeValue')
+      .withPivot(['value']);
   }
 }
 
