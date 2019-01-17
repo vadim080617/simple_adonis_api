@@ -8,9 +8,9 @@ class AtrributeSeeder {
     await Promise.all(
       types.map(type =>
         Promise.all(
-          [1, 2, 3, 4].map(el =>
+          Array.from({ length: 4 }).map((el, index) =>
             type.attributes().create({
-              attribute: `${type.type}attr${el}`
+              attribute: `${type.type}attr${index + 1}`
             })
           )
         )

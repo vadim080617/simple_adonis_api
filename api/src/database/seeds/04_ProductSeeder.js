@@ -1,5 +1,6 @@
-const Product = use('App/Models/Product');
 const User = use('App/Models/User');
+const Product = use('App/Models/Product');
+const Factory = use('Factory');
 const ProductType = use('App/Models/Type');
 
 class ProductSeeder {
@@ -14,12 +15,7 @@ class ProductSeeder {
       users.map(user =>
         Promise.all(
           productTypes.map(productType =>
-            Product.create({
-              name: `${productType.type}${new Date().getTime()}`,
-              type_id: productType.id,
-              user_id: user.id,
-              price: Math.random() * 10000
-            })
+            Factory.model('App/Models/Product').create({ type_id: productType.id, user_id: user.id })
           )
         )
       )

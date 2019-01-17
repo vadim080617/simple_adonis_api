@@ -12,7 +12,6 @@ class AttributesSchema extends Schema {
         .references('id')
         .inTable('types')
         .onDelete('cascade');
-      table.timestamps();
     });
   }
 
