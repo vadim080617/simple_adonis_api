@@ -1,6 +1,6 @@
 const ProductType = use('App/Models/ProductType');
 
-class ProductTypeController {
+class TypeController {
   async index() {
     const types = await ProductType.all();
     return types;
@@ -23,4 +23,4 @@ class ProductTypeController {
   }
 }
 
-module.exports = ProductTypeController;
+module.exports = TypeController;
