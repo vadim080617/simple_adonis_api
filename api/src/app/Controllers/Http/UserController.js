@@ -1,22 +1,9 @@
+const User = use('App/Models/User');
+
 class UserController {
   async index() {
-    return { msg: 'all users' };
-  }
-
-  async store() {
-    return {};
-  }
-
-  async show() {
-    return {};
-  }
-
-  async update() {
-    return {};
-  }
-
-  async destroy() {
-    return {};
+    const users = await User.all();
+    return users;
   }
 }
 

@@ -36,7 +36,7 @@ class ProductController {
     return product;
   }
 
-  async update({ request, params}) {
+  async update({ request, params }) {
     const { name, type: typeId, author: userId, price, attrs } = request.only([
       'name',
       'type',
