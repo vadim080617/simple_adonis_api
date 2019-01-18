@@ -8,10 +8,9 @@ class AttributeController {
   }
 
   async store({ params, request }) {
-    const { attribute } = request.all();
     const productType = await ProductType.findOrFail(params.id);
     const newAttr = productType.attributes().create({
-      attribute
+      attribute: request.input('attribute')
     });
     return newAttr;
   }
