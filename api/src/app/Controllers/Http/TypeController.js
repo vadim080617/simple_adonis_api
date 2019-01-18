@@ -6,12 +6,11 @@ class TypeController {
     return productTypes;
   }
 
-  async store({ request }) {
-    const { type } = request.all();
+  async store({ request, response }) {
     const newProductType = await ProductType.create({
-      type
+      type: request.input('type')
     });
-    return newProductType;
+    response.status(201).send(newProductType);
   }
 
   async show({ params }) {
@@ -20,10 +19,7 @@ class TypeController {
   }
 
   async update({ request, params }) {
-    const { type } = request.all();
-    const updatingProduct = await ProductType.find(params.id);
-    updatingProduct.merge({ type });
-    await updatingProduct.save();
+    const updatingProduct = await ProductType.mergeUpdate({ id: params.id, type: request.input('type') });
     return updatingProduct;
   }
 

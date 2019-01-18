@@ -1,5 +1,9 @@
+const ProductType = use('App/Models/Type');
+
 class Product {
-  static async getWithSortAndFilters({ name = null, author = null, type = null }, { sortParams }) {
+  static async getWithSortAndFilters({ name = null, author = null, type = null }, { sort }) {
+    const sortString = sort || 'id|desc';
+    const sortParams = sortString.split('|');
     const products = await this.query()
       .where(query => {
         if (type) {
@@ -18,10 +22,16 @@ class Product {
     return products;
   }
 
-  static async createWithAddAttr(mainFields, additionlFields) {
+  static async createWithAddAttr(mainFields, attrs) {
+    const productType = await ProductType.find(mainFields.type_id);
+    const { rows: attributes } = await productType.attributes().fetch();
+    attributes.map(el => {
+      el.value = attrs[el.attribute];
+      return el;
+    });
     const newProduct = await this.create(mainFields);
     await Promise.all(
-      additionlFields.map(async productAttr => {
+      attributes.map(async productAttr => {
         await newProduct.attrs().attach([productAttr.id], row => {
           row.value = productAttr.value;
         });
@@ -30,17 +40,24 @@ class Product {
 
     const newProductWithAttr = await this.query()
       .where('id', newProduct.id)
-      .with('attrs')
+      .with('type')
+      .with('user')
       .first();
     return newProductWithAttr;
   }
 
-  static async updateWithAddAttr(id, mainFields, additionlFields) {
+  static async updateWithAddAttr(id, mainFields, attrs) {
+    const productType = await ProductType.find(mainFields.type_id);
+    const { rows: attributes } = await productType.attributes().fetch();
+    attributes.map(el => {
+      el.value = attrs[el.attribute];
+      return el;
+    });
     const updatingProduct = await this.findOrFail(id);
     updatingProduct.merge(mainFields);
     await updatingProduct.save();
     await Promise.all(
-      additionlFields.map(productAttr => {
+      attributes.map(productAttr => {
         return updatingProduct
           .attrs()
           .pivotQuery()
@@ -49,7 +66,13 @@ class Product {
       })
     );
 
-    return updatingProduct;
+    const updatedProductWithAttr = await this.query()
+      .where('id', updatingProduct.id)
+      .with('type')
+      .with('user')
+      .first();
+
+    return updatedProductWithAttr;
   }
 }
 

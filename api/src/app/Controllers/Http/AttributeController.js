@@ -17,13 +17,12 @@ class AttributeController {
   }
 
   async update({ params, request }) {
-    const { attribute } = request.all();
     const productType = await ProductType.findOrFail(params.id);
     await productType
       .attributes()
       .where('id', params.attrid)
       .update({
-        attribute
+        attribute: request.input('attribute')
       });
     const updatedAttr = await productType
       .attributes()

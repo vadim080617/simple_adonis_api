@@ -16,6 +16,14 @@ class Product extends Model {
       .pivotModel('App/Models/ProductAttributeValue')
       .withPivot(['value']);
   }
+
+  type() {
+    return this.belongsTo('App/Models/Type');
+  }
+
+  user() {
+    return this.belongsTo('App/Models/User');
+  }
 }
 
 module.exports = Product;

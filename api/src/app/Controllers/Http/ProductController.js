@@ -1,16 +1,13 @@
 const Product = use('App/Models/Product');
-const ProductType = use('App/Models/Type');
 
 class ProductController {
   async index({ request }) {
-    const { type, name, author } = request.all();
-    const sortString = request.input('sort') ? request.input('sort') : 'id|desc';
-    const sortParams = sortString.split('|');
-    const products = await Product.getWithSortAndFilters({ type, name, author }, { sortParams });
+    const { type, name, author, sort } = request.all();
+    const products = await Product.getWithSortAndFilters({ type, name, author }, { sort });
     return products;
   }
 
-  async store({ request }) {
+  async store({ request, response }) {
     const { name, type: typeId, author: userId, price, attrs } = request.only([
       'name',
       'type',
@@ -18,21 +15,18 @@ class ProductController {
       'price',
       'attrs'
     ]);
-    const productType = await ProductType.find(request.input('type'));
-    const { rows: attributes } = await productType.attributes().fetch();
-    attributes.map(el => {
-      el.value = attrs[el.attribute];
-      return el;
-    });
-    const newProduct = await Product.createWithAddAttr({ name, type_id: typeId, user_id: userId, price }, attributes);
-    return newProduct;
+
+    const newProduct = await Product.createWithAddAttr({ name, type_id: typeId, user_id: userId, price }, attrs);
+    response.status(201).send(newProduct);
   }
 
   async show({ params }) {
     const product = await Product.query()
       .where('id', params.id)
-      .with('attrValues.attr')
-      .first();
+      .with('attrs')
+      .with('user')
+      .with('type')
+      .firstOrFail();
     return product;
   }
 
@@ -44,16 +38,10 @@ class ProductController {
       'price',
       'attrs'
     ]);
-    const productType = await ProductType.find(request.input('type'));
-    const { rows: attributes } = await productType.attributes().fetch();
-    attributes.map(el => {
-      el.value = attrs[el.attribute];
-      return el;
-    });
     const updatedProduct = await Product.updateWithAddAttr(
       params.id,
       { name, type_id: typeId, user_id: userId, price },
-      attributes
+      attrs
     );
     return updatedProduct;
   }
