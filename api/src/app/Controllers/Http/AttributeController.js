@@ -35,7 +35,7 @@ class AttributeController {
     const attr = await productType
       .attributes()
       .where('id', params.attrid)
-      .first();
+      .firstOrFail();
     return attr;
   }
 
